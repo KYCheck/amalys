@@ -21,7 +21,7 @@ const Header = () => {
                             height={48}
                         />
                     </div>
-                    <span className="text-2xl font-normal font-bold text-white hidden sm:block">
+                    <span className="text-2xl font-normal text-white hidden sm:block">
                         Kycheck
                     </span>
                 </Link>
@@ -50,11 +50,11 @@ const Header = () => {
                                     </button>
                                 </DropdownTrigger>
                                 <DropdownMenu aria-label="product menu" disabledKeys={["kyc"]}>
-                                    <DropdownItem key="kyc" href="/" className='text-white'>KYC</DropdownItem>
+                                    <DropdownItem key="kyc" href="/kyc" className='text-white'>KYC</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </div>
-                        <Link href="/company-event" className="text-white hover:text-lavender ml-4 px-6 py-2 text-xl transition duration-300">
+                        <Link href="/" className="text-white hover:text-lavender ml-4 px-6 py-2 text-xl transition duration-300">
                             Company
                         </Link>
                         <Link href="/#contact" className="text-white hover:text-lavender ml-4 px-6 py-2 text-xl transition duration-300">

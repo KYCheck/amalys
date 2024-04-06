@@ -25,7 +25,7 @@ function ConnectWallet() {
           "ml-auto px-2 py-1 rounded-xl transition-colors duration-300 ease-in-out";
 
         // Style variations
-        const connectStyle = `bg-tiffany_blue hover:bg-alice_blue-200 text-white text-lg font-bold py-4 px-8 ${baseStyle}`;
+        const connectStyle = `bg-tiffany_blue hover:bg-alice_blue-200 text-white text-lg font-bold py-2 px-6 ${baseStyle}`;
         const chainStyle = ` text-white ${baseStyle}`;
         const accountStyle = `text-white ${baseStyle}`;
 

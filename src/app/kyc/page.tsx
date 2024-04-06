@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import Header from '../components/header'
-import Footer from '../components/footer'
+import Header from '../../components/header'
+import PowensConnection from '../../components/PowensConnection'
 
 export default function Home() {
   return (
@@ -38,28 +38,9 @@ export default function Home() {
                 height: '330px',
               }}
             />
-            <div className='relative z-10 mx-auto w-2/3'>
-              <h1 className="text-8xl text-lavender font-sans font-bold leading-tight text-center responsive-heading">
-                Revolutionizing KYC:
-              </h1>
-              <h1 className="text-8xl text-white font-sans font-bold leading-tight text-center responsive-heading">
-                Effortless and Secure.
-              </h1>
-              <p className="text-2xl mt-20 text-gray-300 text-center">
-              Our platform redefines the KYC process: securely link your bank account once, and you're set. No more uploading personal ID cards or sensitive documents to every site. Just provide your name on platforms like DYDX, and we handle the rest.
-              </p>
-              <nav className="flex justify-center mt-20 p-8">
-                <Link href="/kyc" className="text-2xl text-black mr-16 bg-white hover:bg-lavender font-bold font-sans py-4 px-14 rounded-lg transition duration-300">
-                  Launch
-                </Link>
-                <Link href="/" className="text-xl text-white font-bold py-4 px-4">
-                  Verify a kyc
-                </Link>
-              </nav>
-            </div>
+            <PowensConnection />
           </section>
         </main>
-        <Footer />
       </div>
     </div >
   );
