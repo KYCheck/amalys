@@ -6,12 +6,16 @@ import { useSearchParams } from 'next/navigation';
 import Header from './header'
 import { Button } from "@nextui-org/react";
 import { keccak256 } from 'viem';
+import { simulateContract, waitForTransactionReceipt, writeContract } from '@wagmi/core'
+import { getAccount } from '@wagmi/core';
+import { config } from '../wagmi';
+import { abi, contractAddress } from '../constants/contractABI';
 
 export default function State() {
     const [firstName, setFirstName] = useState('Ewan');
     const [lastName, setLastName] = useState('Hamon');
     const [bankName, setBankName] = useState('Boursorama');
-    const [hash, setHash] = useState(''); 
+    const [generatedHash, setGeneratedHash] = useState(''); 
 
     // CALL POWENS FOR KEY ECHANGES
     const searchParams = useSearchParams()
@@ -112,8 +116,39 @@ export default function State() {
         const combinedString = `${firstName}|${lastName}|${bankName}`;
         const combinedUint8Array = toUint8Array(combinedString);
         const hash = keccak256(combinedUint8Array);
-        setHash(hash);
+        setGeneratedHash(hash);
         console.log(hash);
+    };
+
+    const AddData = async () => {
+        const account = getAccount(config);
+        console.log('Account:', account.address);
+
+        if (generatedHash){
+            console.log('Generated hash:', generatedHash);
+            console.log('ADDDDDD')
+            try {
+                console.log('BONJ')
+                const { request } = await simulateContract(config, { 
+                    abi: abi,
+                    address: contractAddress,
+                    functionName: 'addData',
+                    args: [
+                        account.address,
+                        generatedHash,
+                    ],
+                })
+                console.log('Request:', request);
+                console.log('Enrevoir')
+                const hash = await writeContract(config, request) 
+                const data = await waitForTransactionReceipt(config, {
+                    hash: hash,
+                } )
+                console.log('Data:', data);
+            } catch (error) { }
+        } else {
+            console.log('Impossible to call Transaction function: Generatedhash is undefined.')
+        }
     };
 
     return (
@@ -152,6 +187,7 @@ export default function State() {
                         <div className="flex items-center justify-center">
                             <div className="flex flex-col gap-4 w-1/3">
                                 <Button className="bg-tiffany_blue py-6 text-xl font-semibold" onPress={hashNameBank}>Generate hash</Button>
+                                <Button className="bg-tiffany_blue py-6 text-xl font-semibold" onPress={AddData}>Put the hash on the SC</Button>
                             </div>
                         </div>
                     </section>
