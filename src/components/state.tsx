@@ -4,18 +4,19 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from './header'
-import { Button } from "@nextui-org/react";
 import { keccak256 } from 'viem';
 import { simulateContract, waitForTransactionReceipt, writeContract } from '@wagmi/core'
 import { getAccount } from '@wagmi/core';
 import { config } from '../wagmi';
 import { abi, contractAddress } from '../constants/contractABI';
+import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
 
 export default function State() {
     const [firstName, setFirstName] = useState('Ewan');
     const [lastName, setLastName] = useState('Hamon');
     const [bankName, setBankName] = useState('Boursorama');
-    const [generatedHash, setGeneratedHash] = useState(''); 
+    const [generatedHash, setGeneratedHash] = useState('');
+    const [showHash, setShowHash] = useState(false);
 
     // CALL POWENS FOR KEY ECHANGES
     const searchParams = useSearchParams()
@@ -117,6 +118,7 @@ export default function State() {
         const combinedUint8Array = toUint8Array(combinedString);
         const hash = keccak256(combinedUint8Array);
         setGeneratedHash(hash);
+        setShowHash(true);
         console.log(hash);
     };
 
@@ -124,12 +126,12 @@ export default function State() {
         const account = getAccount(config);
         console.log('Account:', account.address);
 
-        if (generatedHash){
+        if (generatedHash) {
             console.log('Generated hash:', generatedHash);
             console.log('ADDDDDD')
             try {
                 console.log('BONJ')
-                const { request } = await simulateContract(config, { 
+                const { request } = await simulateContract(config, {
                     abi: abi,
                     address: contractAddress,
                     functionName: 'addData',
@@ -140,10 +142,10 @@ export default function State() {
                 })
                 console.log('Request:', request);
                 console.log('Enrevoir')
-                const hash = await writeContract(config, request) 
+                const hash = await writeContract(config, request)
                 const data = await waitForTransactionReceipt(config, {
                     hash: hash,
-                } )
+                })
                 console.log('Data:', data);
             } catch (error) { }
         } else {
@@ -186,8 +188,45 @@ export default function State() {
                         />
                         <div className="flex items-center justify-center">
                             <div className="flex flex-col gap-4 w-1/3">
-                                <Button className="bg-tiffany_blue py-6 text-xl font-semibold" onPress={hashNameBank}>Generate hash</Button>
-                                <Button className="bg-tiffany_blue py-6 text-xl font-semibold" onPress={AddData}>Put the hash on the SC</Button>
+                                <Card className=" p-3 bg-opacity-50 bg-gray-800 max-w-lg w-full">
+                                    <CardHeader className="flex gap-3">
+                                        <div className="flex flex-col mx-auto justify-center mt-2">
+                                            <p className="mx-auto mb-1 text-2xl text-old_rose">Generate Your Secure Hash</p>
+                                        </div>
+                                    </CardHeader>
+                                    <CardBody className="flex justify-center items-center">
+                                        <div className="flex flex-col justify-center items-center mx-auto">
+                                            <p className="text-sm text-gray-300 text-center">Tap the button below to create a unique, encrypted hash of your information. This one-step process ensures your data remains protected while verifying your identity. Secure, simple, and swift.</p>
+                                        </div>
+                                    </CardBody>
+                                    <CardFooter className="mb-2 flex flex-col justify-center items-center">
+                                        <div className="flex gap-4">
+                                            <Button className="bg-old_rose py-4 text-lg text-white" onPress={hashNameBank}>Generate hash</Button>
+                                        </div>
+                                        {/* Conditional rendering to display hash, now below the button due to flex-col */}
+                                        {showHash && (
+                                            <p className="text-md text-white mt-4">{generatedHash}</p>
+                                        )}
+                                    </CardFooter>
+                                </Card>
+                                <Card className=" p-3 bg-opacity-50 bg-gray-800 max-w-lg w-full">
+                                    <CardHeader className="flex gap-3">
+                                        <div className="flex flex-col mx-auto justify-center mt-2">
+                                            <p className="mx-auto mb-1 text-2xl text-old_rose">Put Your Hash On-Chain</p>
+                                        </div>
+                                    </CardHeader>
+                                    <CardBody className="flex justify-center items-center">
+                                        <div className="flex flex-col justify-center items-center mx-auto">
+                                            <p className="text-sm text-gray-300 text-center">This final step safeguard your identity with unparalleled security.</p>
+                                        </div>
+                                    </CardBody>
+                                    <CardFooter className="mb-2 flex justify-center items-center">
+                                        <div className="flex gap-4">
+                                            <Button className="bg-old_rose py-4 text-lg text-white" onPress={AddData}>Let&apos;s Go</Button>
+                                        </div>
+                                    </CardFooter>
+                                </Card>
+
                             </div>
                         </div>
                     </section>
