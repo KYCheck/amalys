@@ -15,14 +15,14 @@ const Header = () => {
                 <Link href="/" className="flex items-center">
                     <div className="mr-5 relative">
                         <Image
-                            src="/images/logo.png"
+                            src="/images/logo-blanc-r.png"
                             alt="Logo"
                             width={48}
                             height={48}
                         />
                     </div>
                     <span className="text-2xl font-normal text-white hidden sm:block">
-                        Kycheck
+                        Estia
                     </span>
                 </Link>
                 <div className="flex flex-col items-center sm:items-start">
@@ -54,7 +54,7 @@ const Header = () => {
                                 </DropdownMenu>
                             </Dropdown>
                         </div>
-                        <Link href="/" className="text-white hover:text-lavender ml-4 px-6 py-2 text-xl transition duration-300">
+                        <Link href="/state" className="text-white hover:text-lavender ml-4 px-6 py-2 text-xl transition duration-300">
                             Company
                         </Link>
                         <Link href="/#contact" className="text-white hover:text-lavender ml-4 px-6 py-2 text-xl transition duration-300">

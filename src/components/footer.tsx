@@ -31,7 +31,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="text-center text-base text-gray-600 mt-10 border-t border-gray-500 pt-8">
-                    © {new Date().getFullYear()} Kycheck. All Rights Reserved.
+                    © {new Date().getFullYear()} Estia. All Rights Reserved.
                     <p>By using this website, you accept our <Link href="/terms">Terms of Use</Link> and <Link href="/privacy">Privacy Policy</Link>.</p>
                 </div>
             </div>
