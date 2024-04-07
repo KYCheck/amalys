@@ -6,7 +6,7 @@ import Footer from '../components/footer'
 
 export default function Home() {
   return (
-    <div className='bg-zinc-900'>
+    <div className='bg-rich_black'>
       <div className='backdrop-blur-3xl flex flex-col min-h-screen mx-auto' style={{ maxWidth: '1500px' }}>
         <Header />
         <main className="flex-grow">
